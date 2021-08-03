@@ -7,15 +7,6 @@ const updateContact = async (req, res, next) => {
       params: { contactId },
     } = req;
 
-    if (!body) {
-      res.status(400).json({
-        status: "error",
-        code: 404,
-        message: "missing fields",
-      });
-      return;
-    }
-
     const result = await services.update(contactId, body);
 
     res.json({
@@ -33,4 +24,4 @@ const updateContact = async (req, res, next) => {
   }
 };
 
-module.export = updateContact;
+module.exports = updateContact;
