@@ -21,8 +21,6 @@ const updateStatus = async (req, res, next) => {
       favorite,
     };
 
-    console.log(updatedData);
-
     const result = await services.update(contactId, updatedData);
 
     res.json({
