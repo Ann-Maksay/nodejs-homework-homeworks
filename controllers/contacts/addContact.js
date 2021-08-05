@@ -1,4 +1,4 @@
-const { contacts: services } = require("../services");
+const { contacts: services } = require("../../services");
 
 const addContact = async (req, res, next) => {
   try {
