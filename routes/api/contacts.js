@@ -12,14 +12,20 @@ router.get("/", cntrl.getListContacts);
 
 router.get("/:contactId", cntrl.getContactById);
 
-router.post("/", validateMiddleware(validateNewContact), cntrl.addContact);
+router.post(
+  "/",
+  express.json(),
+  validateMiddleware(validateNewContact),
+  cntrl.addContact
+);
 
 router.delete("/:contactId", cntrl.removeContact);
 
-router.patch("/:contactId/favorite", cntrl.updateStatus);
+router.patch("/:contactId/favorite", express.json(), cntrl.updateStatus);
 
 router.patch(
   "/:contactId",
+  express.json(),
   validateMiddleware(validateUpdatedContact),
   cntrl.updateContact
 );
