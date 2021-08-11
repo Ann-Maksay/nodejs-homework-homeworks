@@ -20,11 +20,13 @@ const login = async (req, res, next) => {
     };
     const token = jwt.sign(payload, SECRET_KEY);
     await services.updateById(user._id, { token });
+    const userInfo = { email: user.email, subscription: user.subscription };
     res.json({
       status: "success",
       code: 200,
       data: {
         token,
+        userInfo,
       },
     });
   } catch (error) {
