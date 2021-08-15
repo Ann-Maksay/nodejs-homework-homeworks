@@ -3,6 +3,7 @@ const { contacts: services } = require("../../services");
 const updateStatus = async (req, res, next) => {
   try {
     const {
+      user: { _id },
       body,
       params: { contactId },
     } = req;
@@ -21,13 +22,13 @@ const updateStatus = async (req, res, next) => {
       favorite,
     };
 
-    const result = await services.update(contactId, updatedData);
+    const updatedContact = await services.update(contactId, _id, updatedData);
 
     res.json({
       status: "success",
       code: 200,
       data: {
-        result,
+        updatedContact,
       },
     });
   } catch (error) {

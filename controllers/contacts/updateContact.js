@@ -3,17 +3,18 @@ const { contacts: services } = require("../../services");
 const updateContact = async (req, res, next) => {
   try {
     const {
+      user: { _id },
       body,
       params: { contactId },
     } = req;
 
-    const result = await services.update(contactId, body);
+    const updatedContact = await services.update(contactId, _id, body);
 
     res.json({
       status: "success",
       code: 200,
       data: {
-        result,
+        updatedContact,
       },
     });
   } catch (error) {

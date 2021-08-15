@@ -2,7 +2,8 @@ const { contacts: services } = require("../../services");
 
 const addContact = async (req, res, next) => {
   try {
-    const newContact = req.body;
+    const { _id } = req.user;
+    const newContact = { ...req.body, owner: _id };
     const result = await services.add(newContact);
     res.status(201).json({
       status: "success",
