@@ -15,24 +15,17 @@ router.get("/:contactId", validateAuth, cntrl.getContactById);
 router.post(
   "/",
   validateAuth,
-  express.json(),
   validateMiddleware(validateNewContact),
   cntrl.addContact
 );
 
 router.delete("/:contactId", validateAuth, cntrl.removeContact);
 
-router.patch(
-  "/:contactId/favorite",
-  validateAuth,
-  express.json(),
-  cntrl.updateStatus
-);
+router.patch("/:contactId/favorite", validateAuth, cntrl.updateStatus);
 
 router.patch(
   "/:contactId",
   validateAuth,
-  express.json(),
   validateMiddleware(validateUpdatedContact),
   cntrl.updateContact
 );
