@@ -1,5 +1,8 @@
 const { users: services } = require("../../services");
+const { sendMail } = require("../../utils");
+
 const gravatar = require("gravatar");
+const { v4: uuidv4 } = require("uuid");
 
 const signup = async (req, res, next) => {
   try {
@@ -14,13 +17,24 @@ const signup = async (req, res, next) => {
     }
 
     const avatarURL = gravatar.url(email, { s: 250 });
-    console.log(avatarURL);
+
+    const verifyToken = uuidv4();
 
     await services.add({
       email,
       password,
       avatarURL,
+      verifyToken,
     });
+
+    const mailData = {
+      to: email,
+      subject: "Verify email",
+      text: "Confim your email, please",
+      html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${verifyToken}">Confirm signup</a>`,
+    };
+
+    await sendMail(mailData);
 
     res.status(201).json({
       status: "success",

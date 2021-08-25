@@ -12,8 +12,8 @@ const updateById = (id, updateInfo) => {
   return User.findByIdAndUpdate(id, updateInfo, { new: true });
 };
 
-const add = ({ email, password, avatarURL }) => {
-  const newUser = new User({ email, avatarURL });
+const add = ({ email, password, avatarURL, verifyToken }) => {
+  const newUser = new User({ email, avatarURL, verifyToken });
   newUser.setPassword(password);
   return newUser.save();
 };

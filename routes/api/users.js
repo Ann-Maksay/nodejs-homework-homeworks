@@ -6,7 +6,7 @@ const {
   filesMiddleware,
 } = require("../../middlewares");
 const { users: cntrl } = require("../../controllers");
-const { validateNewUser } = require("../../validateShemas");
+const { validateNewUser, validateEmail } = require("../../validateShemas");
 
 const router = express.Router();
 
@@ -24,5 +24,9 @@ router.patch(
   filesMiddleware.single("avatar"),
   cntrl.avatar
 );
+
+router.get("/verify/:verificationToken", cntrl.verify);
+
+router.post("/verify/", validateMiddleware(validateEmail), cntrl.reverify);
 
 module.exports = router;
