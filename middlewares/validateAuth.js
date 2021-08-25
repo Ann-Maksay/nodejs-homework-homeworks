@@ -2,7 +2,7 @@ const passport = require("passport");
 
 const jwtAuthenticate = (req, res, next) => {
   passport.authenticate("jwt", { session: false }, (error, user) => {
-    if (error || !user || !user.token) {
+    if (error || !user || !user.token || !user.verify) {
       return res.status(401).json({
         status: "error",
         code: 401,

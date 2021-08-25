@@ -14,6 +14,13 @@ const login = async (req, res, next) => {
         message: "Email or password is wrong",
       });
     }
+    if (!user.verify) {
+      return res.status(400).json({
+        status: "error",
+        code: 400,
+        message: "Email not verified",
+      });
+    }
     const { SECRET_KEY } = process.env;
     const payload = {
       id: user._id,
